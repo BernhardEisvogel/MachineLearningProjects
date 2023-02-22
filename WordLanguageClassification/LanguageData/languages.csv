@@ -1,0 +1,22 @@
+,index,language,code,folder,sub_folder,encoding
+2,2,Czech,cs_CZ,cs_CZ,cs_CZ,iso-8859-2
+5,5,English,en_GB,en,en_GB,iso-8859-1
+7,8,French,fr_FR,fr_FR,fr,iso-8859-15
+8,9,German,de_DE,de,de_DE_frami,iso-8859-1
+9,10,Greek,el_GR,el_GR,el_GR,iso-8859-7
+10,11,Hungarian,hu_HU,hu_HU,hu_HU,utf_8
+11,13,Italian,it_IT,it_IT,it_IT,iso-8859-15
+18,21,Slovenian,sl_SI,sl_SI,sl_SI,iso-8859-2
+19,22,Spanish,es_ES,es,es_ES,iso-8859-1
+20,23,Swedish,sv_SE,sv_SE,sv_SE,iso-8859-1
+21,24,Russian,ru_RU,ru_RU,ru_RU,utf_8
+23,26,Turkish,tr_TR,tr_TR,tr_TR,utf_8
+29,32,Icelandic,is_IC,is,is,iso-8859-1
+40, 33, Korean,ko_KO,ko,ko,utf_8
+41,34,Chinese,zh_CH,zh,zh,utf_8
+42,35,Hindi,hi_hi,hi_hi,hi_hi,utf_8
+43,35,Japanese,jp_JP,jp_JP,jp_JP,utf_8
+44,36, Arabic,ar_AR,ar_AR,ar_AR,utf_8
+45,37,Persian,pe_IR,pe_IR,pe_IR,utf_8
+
+
