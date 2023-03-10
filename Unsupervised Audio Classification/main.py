@@ -32,7 +32,7 @@ from rich.progress import track
 
 #Get dataFile
 if os.path.exists("./datasets") == False:
-    print("The program needs to download 1.5GB of audio files, sorry !")
+    print("\033[47mThe program needs to download 1.5GB of audio files, sorry !\033[0m")
     _ = tf.keras.utils.get_file('esc-50.zip',
                             'https://github.com/karoldvl/ESC-50/archive/master.zip',
                             cache_dir='./',
@@ -41,8 +41,9 @@ if os.path.exists("./datasets") == False:
 
 
 
-# Types from the esc dataset that should be classified
-CALLTYPES = ["dog","cat","chirping_birds",'vacuum_cleaner','insects','sea_waves']
+# Types from the esc dataset that should be classified (animal sounds because 
+# they are similar to the acutal problem)
+CALLTYPES = ["dog","cat",'pig','crying_baby','hen','siren','crow']
 
 
 
@@ -100,22 +101,22 @@ filenames = filtered_pd['filename']
 maxNumber = filenames.shape[0]
 dataList = []
 
-print("\033[32m Transcoding Data \033[0m")
+print("\033[32mTranscoding Data \033[0m")
 for i in track(range(maxNumber)):
     dataArray = load_wav_16k_mono(filenames.iat[i])
     scores, embeddings, spectrogram = yamnet_model(dataArray)
     embeddings = tf.reduce_max(embeddings, axis = 0)
     dataList.append(embeddings)
-    
+
 
 print("\033[32m Preprocessing \033[0m")
 X = preprocessing.normalize(np.array(dataList))
 
-pca = PCA(n_components = 20)
+pca = PCA(n_components = 35)
 Y = pca.fit_transform(X)
 
 print("\033[32m Clustering \033[0m")
-cl = AgglomerativeClustering(n_clusters = None, distance_threshold=1.0, compute_full_tree=True, linkage= 'complete').fit(Y)
+cl = AgglomerativeClustering(n_clusters = None, distance_threshold=0.9, compute_full_tree=True, linkage= 'complete').fit(Y)
 
 Nlabels = max(cl.labels_)
 CALLTYPES.append("None")
@@ -143,4 +144,14 @@ for i in range(labels.shape[0]):
     print("There were " + str(int(100 * delta/row.sum())) + """% impure sublabels in this label\n""")
          
 print("There is a total pureness error of: " + str(totalError) + "  out of " + str(len(cl.labels_)) + " samples")
-print("\nThank you for using this program.")
+print('''\nThank you for using this program!
+      I hope you shall be able to identify many sounds (without doing anything)
+             ,.-----__    
+          ,:::://///,:::-. 
+         /:''/////// ``:::`;/|/
+        /'   ||||||     :://'`\ ''' + '''
+      .' ,   ||||||     `/(  e \ 
+-===~__-'\__X_`````\_____/~`-._ `.
+            ~~        ~~       `~-" ''')
+          
+          
