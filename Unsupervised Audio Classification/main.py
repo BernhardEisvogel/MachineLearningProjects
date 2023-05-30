@@ -9,7 +9,6 @@ This is an unnsupervised ML programn that automatically labels audio data.
 The program works surprisingly well and figures out very pure subclassification.
 (Around 93% "pureness accuracy")
 
-@author: Bernhard Eisvogel - bernhard.eisvogel(ät)googlemail.com
 """
 # General 
 import numpy as np
@@ -152,6 +151,6 @@ print('''\nThank you for using this program!
         /'   ||||||     :://'`\ ''' + '''
       .' ,   ||||||     `/(  e \ 
 -===~__-'\__X_`````\_____/~`-._ `.
-            ~~        ~~       `~-" ''')
+            ~~        ~~       `~-" . .  .  ..     .      .''')
           
           
