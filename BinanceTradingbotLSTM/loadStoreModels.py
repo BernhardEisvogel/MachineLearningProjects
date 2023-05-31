@@ -29,8 +29,14 @@ def storeModelInfo(m):
 def getModels():
     availableModels = loadModelInfo()
     d = dict()
+     
     for i in range(availableModels.shape[0]):
-        d[availableModels.index[i]] = new_model = tf.keras.models.load_model(availableModels.iat[i,0])
+        print("Load: ", availableModels.index[i])
+        d2 = dict()
+        d2["symbol"] = availableModels.index[i]
+        d2["range"]  = availableModels.iat[i,2]
+        d2["model"]  = tf.keras.models.load_model(availableModels.iat[i,0])
+        d[availableModels.index[i]] = d2
     return d
 
 def saveModels(coin, model, r):

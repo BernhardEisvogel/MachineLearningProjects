@@ -38,6 +38,13 @@ def getPrice(client, sym):
                 return float(i["price"])
     return getFittingPrice(sym)
 
+def get_filter(symbol):
+    client = Client(api_key, api_secret)
+    data_from_api = client.get_exchange_info()
+    symbol_info = next(filter(lambda x: x['symbol'] == symbol, data_from_api['symbols']))
+    
+    return symbol_info
+
 
 def getModel():
     model = tf.keras.Sequential()
@@ -55,34 +62,31 @@ def trainModel(X_train, X_test, y_train, y_test):
     return model
 
 
-def buy(quantity, symbol):
-    print("Buy ", symbol)
+def buy(symbol, quantity):
+   
+    return sell(symbol = symbol, quantity=quantity, action = "BUY") 
+   
+    
+def sell(symbol = "BTCUSDT", quantity = 0.0004, action = "SELL"):
+    print(action, " ", symbol)
     client = Client(api_key, api_secret)
-    
-    p = float(getPrice(client, symbol))
-    
-    print(p)
-    print(float(quantity))
-    if float(quantity) * float(p) > 25.0:
+    p = getPrice(client, symbol)
+    filters = get_filter(symbol)
+    filters["filters"]
+    minNotional = float(next(filter(lambda x: x['filterType'] == "NOTIONAL", filters["filters"]))["minNotional"])
+    if minNotional > p * quantity:
         return False
-    buy_order_limit = client.create_test_order(symbol='ETHUSDT',
+    #q = "{:0.0{}f}".format(quantity, 4)
+        
+    buy_order_limit = client.create_test_order(symbol=symbol,
                                                side='BUY', type='LIMIT',
                                                timeInForce='GTC',
                                                quantity=quantity,
                                                price=p)
-   
-    
-def sell(quantity, symbol):
-    print("Buy ", symbol)
-    client = Client(api_key, api_secret)
-    p = getPrice(client, symbol)
-    buy_order_limit = client.create_test_order(symbol='ETHUSDT',
-                                               side='SELL', type='LIMIT',
-                                               timeInForce='GTC',
-                                               quantity=quantity,
-                                               price=p)
+    return buy_order_limit
     
     
+
     
 def plotData(data2, coin ="BNBBTC"):
     d = data2
